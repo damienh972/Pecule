@@ -69,7 +69,7 @@ export default function Test(props) {
         />
         <CardBody>
           <h4 className={classes.cardTitle}>Bandol</h4>
-          <p>Propriété dans le var avec domaine viticole et vue sur la mer</p>
+          <p>Propriété dans le var avec domaine viticole et piscine</p>
           <Button color="danger" size="lg" onClick={() => transak.init()}>
             Acheter des tokens PCT
           </Button>
