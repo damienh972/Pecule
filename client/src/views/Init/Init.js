@@ -1,5 +1,4 @@
 import React from "react";
-import web3 from "web3";
 import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 import drizzleOptions from "../../drizzleOptions";
@@ -18,7 +17,7 @@ import Test from "../Test/Test.js";
 import Button from "components/CustomButtons/Button.js";
 
 export default function Init() {
-  const [currentAccount, setCurrentAccount] = React.useState(null);
+  const [currentAccount, setCurrentAccount] = React.useState("");
   // We use another react hook in order to make a new component render each time the currentAccount
   // variable change his value, learn more at https://fr.reactjs.org/docs/hooks-effect.html
   // React.useEffect(() => {
@@ -31,7 +30,7 @@ export default function Init() {
   const getAccount = async function () {
     const accounts = await window.ethereum.enable();
     setCurrentAccount(accounts[0]);
-  }
+  };
   window.ethereum.on("accountsChanged", () => {
     getAccount();
   });
@@ -65,21 +64,24 @@ export default function Init() {
     <DrizzleContext.Provider drizzle={drizzle}>
       <DrizzleContext.Consumer>
         {(drizzleContext) => {
-          const { drizzleState, initialized } = drizzleContext;
-          return !initialized ? (
+          const { drizzleState } = drizzleContext;
+          {
+            /* return !initialized ? (
             <div>Loading...</div>
-          ) : (
+          ) : ( */
+          }
+          return (
             <Router history={hist}>
               {!currentAccount && (
                 <Button
-                  color="danger"
+                  color="warning"
                   size="lg"
                   onClick={() => connectWithMetamask()}
                 >
                   Connecter metamask
                 </Button>
               )}
-              {currentAccount !== null && (
+              {currentAccount !== "" && (
                 <p
                   style={{
                     fontSize: "1.2em",

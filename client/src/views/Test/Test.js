@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import transakSDK from "@transak/transak-sdk";
 
@@ -48,7 +49,6 @@ export default function Test(props) {
     transak.close();
   });
 
-
   return (
     <div
       className={classes.container}
@@ -70,8 +70,8 @@ export default function Test(props) {
         <CardBody>
           <h4 className={classes.cardTitle}>Sanary</h4>
           <p>Propriété dans le var avec domaine viticole et piscine</p>
-          <Button color="danger" size="lg" onClick={() => transak.init()}>
-            J'investis !
+          <Button color="warning" size="lg" onClick={() => transak.init()}>
+            J'achetète avec transak !
           </Button>
         </CardBody>
       </Card>
