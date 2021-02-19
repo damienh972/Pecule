@@ -68,7 +68,7 @@ export default function Test(props) {
           alt="Card-img-cap"
         />
         <CardBody>
-          <h4 className={classes.cardTitle}>Bandol</h4>
+          <h4 className={classes.cardTitle}>Sanary</h4>
           <p>Propriété dans le var avec domaine viticole et piscine</p>
           <Button color="danger" size="lg" onClick={() => transak.init()}>
             J'investis !
