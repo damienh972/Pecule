@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import transakSDK from "@transak/transak-sdk";
+import { RampInstantSDK } from "@ramp-network/ramp-instant-sdk";
 
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
@@ -22,6 +23,7 @@ export default function Test(props) {
   const { ...rest } = props;
   console.log(props);
   console.log(rest);
+
   let transak = new transakSDK({
     apiKey: "48c256d9-3a98-4dbe-80c7-34d025de0048", // Your API Key
     environment: "STAGING", // STAGING/PRODUCTION
@@ -36,8 +38,12 @@ export default function Test(props) {
     widgetWidth: "450px",
   });
 
-  // transak.init();
-  console.log(transak);
+  const RampInstanceOverlay = new RampInstantSDK({
+    hostAppName: "Pecule",
+    hostLogoUrl:
+      "https://static.wixstatic.com/media/bbe3c0_362f98b2ac7e418ea2e7fbe5143d59b8~mv2.png/v1/crop/x_0,y_0,w_1983,h_536/fill/w_226,h_61,al_c,q_85,usm_0.66_1.00_0.01/logo%20blanc%201.webp",
+  });
+
   // To get all the events
   transak.on(transak.ALL_EVENTS, (data) => {
     console.log(data);
@@ -52,29 +58,75 @@ export default function Test(props) {
   return (
     <div
       className={classes.container}
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "column",
+      }}
     >
-      <h1>Découvrez nos propriétés</h1>
-      <Card
+      <h1
         style={{
-          width: "20rem",
           textAlign: "center",
+          marginBottom: "2em",
+          fontWeight: "bold",
+          color: "#ff9800",
         }}
       >
-        <img
-          style={{ height: "180px", width: "100%", display: "block" }}
-          className={classes.imgCardTop}
-          src="https://lh3.googleusercontent.com/arWG1CMl_RxYBq8x7QJ36VhKYZy4S2zn87RmEysf_QdxNRxQeKQhS27MpOUxyiSFtM-G-tRepM_lWKeuqs-22cZzpTVK4YgZL18cJg=rj-w1440-h843-n-l70"
-          alt="Card-img-cap"
-        />
-        <CardBody>
-          <h4 className={classes.cardTitle}>Sanary</h4>
-          <p>Propriété dans le var avec domaine viticole et piscine</p>
-          <Button color="warning" size="lg" onClick={() => transak.init()}>
-            J'achetète avec transak !
-          </Button>
-        </CardBody>
-      </Card>
+        Découvrez nos propriétés
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}
+      >
+        <Card
+          style={{
+            width: "20rem",
+            textAlign: "center",
+          }}
+        >
+          <img
+            style={{ height: "180px", width: "100%", display: "block" }}
+            className={classes.imgCardTop}
+            src="https://lh3.googleusercontent.com/arWG1CMl_RxYBq8x7QJ36VhKYZy4S2zn87RmEysf_QdxNRxQeKQhS27MpOUxyiSFtM-G-tRepM_lWKeuqs-22cZzpTVK4YgZL18cJg=rj-w1440-h843-n-l70"
+            alt="Card-img-cap"
+          />
+          <CardBody>
+            <h4 className={classes.cardTitle}>Cassis</h4>
+            <p>Propriété dans le var avec domaine viticole et piscine</p>
+            <Button color="twitter" size="lg" onClick={() => transak.init()}>
+              J'achetète avec transak !
+            </Button>
+          </CardBody>
+        </Card>
+        <Card
+          style={{
+            width: "20rem",
+            textAlign: "center",
+          }}
+        >
+          <img
+            style={{ height: "180px", width: "100%", display: "block" }}
+            className={classes.imgCardTop}
+            src="https://lh3.googleusercontent.com/arWG1CMl_RxYBq8x7QJ36VhKYZy4S2zn87RmEysf_QdxNRxQeKQhS27MpOUxyiSFtM-G-tRepM_lWKeuqs-22cZzpTVK4YgZL18cJg=rj-w1440-h843-n-l70"
+            alt="Card-img-cap"
+          />
+          <CardBody>
+            <h4 className={classes.cardTitle}>Sanary</h4>
+            <p>Propriété dans le var avec domaine viticole et piscine</p>
+            <Button
+              color="success"
+              size="lg"
+              onClick={() => RampInstanceOverlay.show()}
+            >
+              J'achetète avec Ramp !
+            </Button>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -9,13 +9,13 @@ import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 import drizzleOptions from "./drizzleOptions";
 
-const drizzle = new Drizzle(drizzleOptions);
+// const drizzle = new Drizzle(drizzleOptions);
 
 ReactDOM.render(
   // Here is native drizzle components who helps to Dapp initialisation
-  <DrizzleContext.Provider drizzle={drizzle}>
-    <Init component={Init} drizzle={drizzle} />
-  </DrizzleContext.Provider>,
+  // <DrizzleContext.Provider drizzle={drizzle}>
+  <Init component={Init} />,
+  // </DrizzleContext.Provider>,
   document.getElementById("root")
 );
 

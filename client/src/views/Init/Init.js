@@ -29,7 +29,8 @@ export default function Init() {
 
   const getAccount = async function () {
     const accounts = await window.ethereum.enable();
-    setCurrentAccount(accounts[0]);
+    setCurrentAccount(accounts);
+    console.log(accounts);
   };
   window.ethereum.on("accountsChanged", () => {
     getAccount();
@@ -60,19 +61,24 @@ export default function Init() {
       });
   };
 
+  console.log(drizzle);
   return (
     <DrizzleContext.Provider drizzle={drizzle}>
       <DrizzleContext.Consumer>
         {(drizzleContext) => {
-          const { drizzleState } = drizzleContext;
-          {
-            /* return !initialized ? (
-            <div>Loading...</div>
-          ) : ( */
+          const { drizzleState, initialized } = drizzleContext;
+          if (typeof web3 === "undefined") {
+            return (
+              <div className="App">
+                <LandingPage />
+              </div>
+            );
           }
-          return (
+          return !initialized ? (
+            <div>Loading...</div>
+          ) : (
             <Router history={hist}>
-              {!currentAccount && (
+              {!drizzleState.accounts[0] && (
                 <Button
                   color="warning"
                   size="lg"
@@ -81,23 +87,18 @@ export default function Init() {
                   Connecter metamask
                 </Button>
               )}
-              {currentAccount !== "" && (
-                <p
-                  style={{
-                    fontSize: "1.2em",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {currentAccount}
-                </p>
+              {drizzleState.accounts[0] && (
+                <h4 style={{ fontWeight: "bold" }}>
+                  {drizzleState.accounts[0]}
+                </h4>
               )}
 
               <Switch>
                 <Route path="/landing-page">
                   <LandingPage
-                    drizzle={drizzle}
+                    // drizzle={drizzle}
                     account={currentAccount}
-                    drizzleState={drizzleState}
+                    //drizzleState={drizzleState}
                     component={LandingPage}
                   />
                 </Route>
