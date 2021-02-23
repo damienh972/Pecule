@@ -37,7 +37,7 @@ export default function Components(props) {
   const { ...rest } = props;
   return (
     <div>
-      <Header
+      {/* <Header
         brand="Material Kit React"
         rightLinks={<HeaderLinks />}
         fixed
@@ -47,7 +47,7 @@ export default function Components(props) {
           color: "white",
         }}
         {...rest}
-      />
+      /> */}
       <Parallax image={require("assets/img/bg4.jpg")}>
         <div className={classes.container}>
           <GridContainer>

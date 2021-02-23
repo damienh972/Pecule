@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 
 // core components
-import Header from "components/Header/Header.js";
+//import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -22,7 +22,7 @@ import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
 
-const dashboardRoutes = [];
+// const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
@@ -33,7 +33,7 @@ export default function LandingPage(props) {
   console.log({ ...rest });
   return (
     <div>
-      <Header
+      {/* <Header
         color="transparent"
         routes={dashboardRoutes}
         brand="Material Kit React"
@@ -44,7 +44,7 @@ export default function LandingPage(props) {
           color: "white",
         }}
         {...rest}
-      />
+      /> */}
       <Parallax filter image={require("assets/img/landing-bg.jpg")}>
         <div className={classes.container}>
           <GridContainer>
