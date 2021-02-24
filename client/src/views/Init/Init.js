@@ -17,7 +17,6 @@ import Test from "../Test/Test.js";
 import Button from "components/CustomButtons/Button.js";
 
 export default function Init() {
-  console.log(window.ethereum.isConnected());
   const hist = createBrowserHistory();
   const [currentAccount, setCurrentAccount] = React.useState([]);
   const [stateForDrizzle, setStateForDrizzle] = React.useState(null);
