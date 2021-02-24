@@ -17,11 +17,15 @@ import Test from "../Test/Test.js";
 import Button from "components/CustomButtons/Button.js";
 
 export default function Init() {
+  console.log(window.ethereum.isConnected());
   const hist = createBrowserHistory();
   const [currentAccount, setCurrentAccount] = React.useState([]);
   const [stateForDrizzle, setStateForDrizzle] = React.useState(null);
   const [mmConnected, setMMConnected] = React.useState(false);
   const [chainId, setChainId] = React.useState(null);
+
+  let message;
+
   const getChain = async function () {
     await window.ethereum.request({ method: "eth_chainId" }).then((chainId) => {
       console.log(chainId);
@@ -29,17 +33,19 @@ export default function Init() {
     });
   };
 
-  window.ethereum.on("accountsChanged", () => {
-    getAccount();
-  });
-  window.ethereum.on("chainChanged", (_chainId) => {
-    setChainId(parseInt(_chainId, 16));
-    //window.location.reload();
-  });
+  if (window.ethereum.isMetaMask !== undefined) {
+    window.ethereum.on("accountsChanged", () => {
+      getAccount();
+    });
+    window.ethereum.on("chainChanged", (_chainId) => {
+      setChainId(parseInt(_chainId, 16));
+      //window.location.reload();
+    });
 
-  window.ethereum.on("disconnect", (error) => {
-    console.log(error);
-  });
+    window.ethereum.on("disconnect", (error) => {
+      console.log(error);
+    });
+  }
 
   const getAccount = async function () {
     await window.ethereum
@@ -53,7 +59,6 @@ export default function Init() {
       });
   };
 
-  let message;
   const connectWithMetamask = async function () {
     let getDrizzle;
     try {
@@ -87,17 +92,21 @@ export default function Init() {
     }
   };
 
-  const deconnectMetamask = () => {};
-  console.log(currentAccount);
   useEffect(() => {
-    getChain();
-    getAccount();
-    //setIsConnected(window.ethereum.isConnected());
+    if (window.ethereum.isMetaMask !== undefined) {
+      getChain();
+      getAccount();
+    }
   }, []);
-  console.log(chainId);
+  console.log(window.ethereum.isMetaMask);
 
   return (
-    <div>
+    <div
+      style={{
+        marginLeft: "1em",
+        marginTop: "1em",
+      }}
+    >
       {mmConnected && currentAccount !== null && (
         <DrizzleContext.Provider drizzle={stateForDrizzle}>
           <DrizzleContext.Consumer>
@@ -107,13 +116,6 @@ export default function Init() {
                 <h1>{message}</h1>
               ) : (
                 <Router history={hist}>
-                  <Button
-                    color="warning"
-                    size="lg"
-                    onClick={() => deconnectMetamask()}
-                  >
-                    deconnecter metamask
-                  </Button>
                   {chainId !== 42 && (
                     <p
                       style={{
@@ -133,9 +135,9 @@ export default function Init() {
                   <Switch>
                     <Route path="/landing-page">
                       <LandingPage
-                        // drizzle={drizzle}
+                        drizzle={stateForDrizzle}
                         account={currentAccount}
-                        //drizzleState={drizzleState}
+                        drizzleState={drizzleState}
                         component={LandingPage}
                       />
                     </Route>
@@ -159,24 +161,54 @@ export default function Init() {
       )}
       {!mmConnected && (
         <div>
-          {chainId === 42 && currentAccount.length === 0 && (
-            <Button color="warning" size="lg" onClick={connectWithMetamask}>
-              Connecter metamask
-            </Button>
-          )}
-          {chainId !== 42 && currentAccount.length === 0 && (
+          {chainId === 42 &&
+            currentAccount.length === 0 &&
+            window.ethereum.isMetaMask !== undefined && (
+              <Button
+                round
+                color="warning"
+                size="lg"
+                onClick={connectWithMetamask}
+              >
+                Connecter metamask
+              </Button>
+            )}
+          {chainId !== 42 &&
+            currentAccount.length === 0 &&
+            window.ethereum.isMetaMask !== undefined && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                }}
+              >
+                <Button
+                  disabled
+                  round
+                  color="warning"
+                  size="lg"
+                  onClick={connectWithMetamask}
+                >
+                  Connecter metamask
+                </Button>
+                <p
+                  style={{
+                    marginLeft: "2em",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Veuillez vous connecter au réseau kovan
+                </p>
+              </div>
+            )}
+          {window.ethereum.isMetaMask === undefined && (
             <div
               style={{
                 display: "flex",
                 alignItems: "baseline",
               }}
             >
-              <Button
-                disabled
-                color="warning"
-                size="lg"
-                onClick={connectWithMetamask}
-              >
+              <Button round disabled color="warning" size="lg">
                 Connecter metamask
               </Button>
               <p
@@ -185,7 +217,7 @@ export default function Init() {
                   fontWeight: "bold",
                 }}
               >
-                Veuillez vous connecter au réseau kovan
+                Veuillez installer metamask
               </p>
             </div>
           )}
