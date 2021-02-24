@@ -98,7 +98,7 @@ export default function Init() {
       getAccount();
     }
   }, []);
-  console.log(window.ethereum.isMetaMask);
+  console.log(window.innerWidth);
 
   return (
     <div
@@ -195,10 +195,49 @@ export default function Init() {
                   style={{
                     marginLeft: "2em",
                     fontWeight: "bold",
+                    color: "red",
                   }}
                 >
                   Veuillez vous connecter au réseau kovan
                 </p>
+              </div>
+            )}
+          {chainId === 42 &&
+            currentAccount.length !== 0 &&
+            window.ethereum.isMetaMask !== undefined && (
+              <h4
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                {currentAccount}
+              </h4>
+            )}
+          {chainId !== 42 &&
+            currentAccount.length !== 0 &&
+            window.ethereum.isMetaMask !== undefined && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "baseline",
+                }}
+              >
+                <h4
+                  style={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  {currentAccount}
+                </h4>
+                <h4
+                  style={{
+                    color: "red",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Veuillez vous connecter au réseau kovan
+                </h4>
               </div>
             )}
           {window.ethereum.isMetaMask === undefined && (
