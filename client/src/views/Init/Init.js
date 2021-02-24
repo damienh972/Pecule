@@ -17,6 +17,7 @@ import Test from "../Test/Test.js";
 import Button from "components/CustomButtons/Button.js";
 
 export default function Init() {
+  console.log(window.ethereum);
   const hist = createBrowserHistory();
   const [currentAccount, setCurrentAccount] = React.useState([]);
   const [stateForDrizzle, setStateForDrizzle] = React.useState(null);
@@ -32,6 +33,46 @@ export default function Init() {
     });
   };
 
+  const getAccount = async function () {
+    await window.ethereum
+      .request({ method: "eth_accounts" })
+      .then((account) => {
+        console.log(account);
+        setCurrentAccount(account);
+        if (account.length === 0) {
+          setMMConnected(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    if (
+      window.ethereum !== undefined &&
+      window.ethereum.isMetaMask !== undefined
+    ) {
+      getChain();
+      getAccount();
+    }
+  }, []);
+
+  if (window.ethereum === undefined) {
+    return (
+      <Router history={hist}>
+        <Switch>
+          <Route path="/landing-page">
+            <LandingPage account={currentAccount} component={LandingPage} />
+          </Route>
+          <Route path="/test-page">
+            <Test component={Test} />
+          </Route>
+          <Route path="/profile-page" component={ProfilePage} />
+          <Route path="/login-page" component={LoginPage} />
+          <Route path="/" component={Components} />
+        </Switch>
+      </Router>
+    );
+  }
+
   if (window.ethereum.isMetaMask !== undefined) {
     window.ethereum.on("accountsChanged", () => {
       getAccount();
@@ -45,18 +86,6 @@ export default function Init() {
       console.log(error);
     });
   }
-
-  const getAccount = async function () {
-    await window.ethereum
-      .request({ method: "eth_accounts" })
-      .then((account) => {
-        console.log(account);
-        setCurrentAccount(account);
-        if (account.length === 0) {
-          setMMConnected(false);
-        }
-      });
-  };
 
   const connectWithMetamask = async function () {
     let getDrizzle;
@@ -91,12 +120,6 @@ export default function Init() {
     }
   };
 
-  useEffect(() => {
-    if (window.ethereum.isMetaMask !== undefined) {
-      getChain();
-      getAccount();
-    }
-  }, []);
   console.log(window.innerWidth);
 
   return (
