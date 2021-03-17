@@ -53,16 +53,25 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const {
+    color,
+    rightLinks,
+    leftLinks,
+    MMButton,
+    SearchBar,
+    brand,
+    fixed,
+    absolute,
+  } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
-    [classes.fixed]: fixed
+    [classes.fixed]: fixed,
   });
   const brandComponent = <Button className={classes.title}>{brand}</Button>;
   return (
-    <AppBar className={appBarClasses}>
+    <AppBar className={appBarClasses} style={{ padding: 0 }}>
       <Toolbar className={classes.container}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>
@@ -75,7 +84,13 @@ export default function Header(props) {
           )}
         </div>
         <Hidden smDown implementation="css">
+          {SearchBar}
+        </Hidden>
+        <Hidden smDown implementation="css">
           {rightLinks}
+        </Hidden>
+        <Hidden smDown implementation="css">
+          {MMButton}
         </Hidden>
         <Hidden mdUp>
           <IconButton
@@ -93,13 +108,15 @@ export default function Header(props) {
           anchor={"right"}
           open={mobileOpen}
           classes={{
-            paper: classes.drawerPaper
+            paper: classes.drawerPaper,
           }}
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
             {leftLinks}
+            {SearchBar}
             {rightLinks}
+            {MMButton}
           </div>
         </Drawer>
       </Hidden>
@@ -108,7 +125,7 @@ export default function Header(props) {
 }
 
 Header.defaultProp = {
-  color: "white"
+  color: "white",
 };
 
 Header.propTypes = {
@@ -121,7 +138,7 @@ Header.propTypes = {
     "transparent",
     "white",
     "rose",
-    "dark"
+    "dark",
   ]),
   rightLinks: PropTypes.node,
   leftLinks: PropTypes.node,
@@ -145,7 +162,7 @@ Header.propTypes = {
       "transparent",
       "white",
       "rose",
-      "dark"
-    ]).isRequired
-  })
+      "dark",
+    ]).isRequired,
+  }),
 };

@@ -72,6 +72,9 @@ export default function CustomInput(props) {
           underline: underlineClasses
         }}
         id={id}
+        style={{
+        color: "inherit",
+      }}
         {...inputProps}
       />
     </FormControl>

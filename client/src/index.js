@@ -1,21 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
+import store from "./store";
 
 // pages for this product
-import Init from "./views/Init/Init.js";
-
-import { DrizzleContext } from "@drizzle/react-plugin";
-import { Drizzle } from "@drizzle/store";
-import drizzleOptions from "./drizzleOptions";
-
-// const drizzle = new Drizzle(drizzleOptions);
+import Init from "./containers/Init/Init.js";
 
 ReactDOM.render(
   // Here is native drizzle components who helps to Dapp initialisation
-  // <DrizzleContext.Provider drizzle={drizzle}>
-  <Init component={Init} />,
-  // </DrizzleContext.Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Init />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

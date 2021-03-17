@@ -17,7 +17,7 @@ const headerStyle = {
     display: "flex",
     border: "0",
     borderRadius: "3px",
-    padding: "0.625rem 0",
+    padding: " 0.625rem 0",
     marginBottom: "20px",
     color: "#555",
     width: "100%",
@@ -27,7 +27,7 @@ const headerStyle = {
     transition: "all 150ms ease 0s",
     alignItems: "center",
     flexFlow: "row nowrap",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     position: "relative",
     zIndex: "unset"
   },
@@ -40,16 +40,18 @@ const headerStyle = {
     zIndex: "1100"
   },
   container: {
-    ...container,
+    width: "100%",
+    //...container,
     minHeight: "50px",
-    flex: "1",
+    //flex: "1",
     alignItems: "center",
+    marginLeft: 0,
     justifyContent: "space-between",
     display: "flex",
     flexWrap: "nowrap"
   },
   flex: {
-    flex: 1
+    //flex: 1
   },
   title: {
     ...defaultFont,
@@ -66,6 +68,7 @@ const headerStyle = {
     }
   },
   appResponsive: {
+    width: "100%",
     margin: "20px 10px"
   },
   primary: {
@@ -118,6 +121,7 @@ const headerStyle = {
   },
   white: {
     border: "0",
+    paddingTop: "1.2rem",
     padding: "0.625rem 0",
     marginBottom: "20px",
     color: "#555",

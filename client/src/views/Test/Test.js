@@ -20,15 +20,13 @@ const useStyles = makeStyles(styles);
 
 export default function Test(props) {
   const classes = useStyles();
-  const { ...rest } = props;
   console.log(props);
-  console.log(rest);
 
   let transak = new transakSDK({
     apiKey: "48c256d9-3a98-4dbe-80c7-34d025de0048", // Your API Key
     environment: "STAGING", // STAGING/PRODUCTION
     defaultCryptoCurrency: "ETH",
-    walletAddress: "0xC96822B34c7F892B09A39F080B2659105af00146", // Your customer's wallet address
+    walletAddress: "", // Your customer's wallet address
     themeColor: "000000", // App theme color
     fiatCurrency: "", // INR/GBP
     email: "", // Your customer's email address
@@ -67,6 +65,7 @@ export default function Test(props) {
       <h1
         style={{
           textAlign: "center",
+          marginTop: "5em",
           marginBottom: "2em",
           fontWeight: "bold",
           color: "#ff9800",
@@ -123,6 +122,30 @@ export default function Test(props) {
               onClick={() => RampInstanceOverlay.show()}
             >
               J'achetète avec Ramp !
+            </Button>
+          </CardBody>
+        </Card>
+        <Card
+          style={{
+            width: "20rem",
+            textAlign: "center",
+          }}
+        >
+          <img
+            style={{ height: "180px", width: "100%", display: "block" }}
+            className={classes.imgCardTop}
+            src="https://lh3.googleusercontent.com/arWG1CMl_RxYBq8x7QJ36VhKYZy4S2zn87RmEysf_QdxNRxQeKQhS27MpOUxyiSFtM-G-tRepM_lWKeuqs-22cZzpTVK4YgZL18cJg=rj-w1440-h843-n-l70"
+            alt="Card-img-cap"
+          />
+          <CardBody>
+            <h4 className={classes.cardTitle}>Marseille</h4>
+            <p>Propriété dans le var avec domaine viticole et piscine</p>
+            <Button
+              color="warning"
+              size="lg"
+              onClick={() => props.payWithMM(3)}
+            >
+              J'achete avec Metamask !
             </Button>
           </CardBody>
         </Card>

@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -7,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 
 // core components
-//import Header from "components/Header/Header.js";
+import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -22,15 +24,33 @@ import ProductSection from "./Sections/ProductSection.js";
 import TeamSection from "./Sections/TeamSection.js";
 import WorkSection from "./Sections/WorkSection.js";
 
-// const dashboardRoutes = [];
+const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
 export default function LandingPage(props) {
+  const { REACT_APP_API_KEY, REACT_APP_API_SECRET } = process.env;
   const classes = useStyles();
-  console.log(props);
   const { ...rest } = props;
-  console.log({ ...rest });
+
+  const testPinata = () => {
+    const url = `https://api.pinata.cloud/data/testAuthentication`;
+    return axios
+      .get(url, {
+        headers: {
+          pinata_api_key: REACT_APP_API_KEY,
+          pinata_secret_api_key: REACT_APP_API_SECRET,
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  testPinata();
+
   return (
     <div>
       {/* <Header
@@ -45,7 +65,7 @@ export default function LandingPage(props) {
         }}
         {...rest}
       /> */}
-      <Parallax filter image={require("assets/img/landing-bg.jpg")}>
+      <Parallax filter>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
@@ -57,16 +77,6 @@ export default function LandingPage(props) {
                 impression.
               </h4>
               <br />
-              <Button
-                color="danger"
-                size="lg"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fas fa-play" />
-                Watch video
-              </Button>
             </GridItem>
           </GridContainer>
         </div>
