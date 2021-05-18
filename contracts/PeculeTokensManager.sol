@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./PeculeToken.sol";
+
  interface PCLTTokensInterface {
     enum State { SALE_CLOSED, SALE_OPEN}
     function balanceOf(address _address) external;
@@ -16,15 +17,17 @@ import "./PeculeToken.sol";
     function removeHolder(address _address) external;
     function getHoldersCount() external;
  }
- 
+  
 
-contract PeculeTokenManager is Ownable{
+contract PeculeTokensManager is Ownable{
     using Counters for Counters.Counter;
-    using SafeMath for uint;
+    using SafeMath for uint256;
     using SafeMath for int;
     
     enum State { SALE_CLOSED, SALE_OPEN}
     State CurrentState;
+
+    event PriceResult(uint tokenPrice, uint priceFeed);
     
     struct Estate {
         address tokenAddress;
@@ -65,14 +68,12 @@ contract PeculeTokenManager is Ownable{
     function removeHolders(uint _tokenId, address _address) public {
          tokenList[_tokenId].removeHolder(_address);
     }
-    
-    
-    function getLatestPrice() private view returns(int) {
+    function getLatestPrice() public view returns(int) {
         (
-            uint80 roundID, 
+            uint80 roundID,
             int price,
-            uint startedAt,
-            uint timeStamp,
+            uint256 startedAt,
+            uint256 timeStamp,
             uint80 answeredInRound
         ) = priceFeed.latestRoundData();
         // If the round is not complete yet, timestamp is 0
@@ -86,28 +87,31 @@ contract PeculeTokenManager is Ownable{
         uint8 _yearROI,
         uint _estatePrice,
         uint _tokenPrice
-        ) public onlyOwner {
+        ) public {
             
         uint estateId = estateIds.current();
         token = new PCLTTokens(_name, "PCT", _totalSupply*10**18);
         Estates[estateId] = Estate(address(token), _yearROI, _tokenPrice, _estatePrice);
-        tokenList[estateId] = token;
-        
+        tokenList[estateId] = token;  
         estateIds.increment();
     }
     
-    function buyTokens(uint _id, uint _amount ) public payable {
+    function buyTokens(uint256 _id, uint256 _amount ) public payable returns(uint) {
         require(msg.value == _amount, "Incorrect amount send");
         require(CurrentState == State.SALE_OPEN, "Tokens sale not open");
-        uint tokenToSent = (_amount.mul(10**18)).div(_getTokenPriceInwei(_id));
+        uint tokenToSent =_amount.div(getTokenPriceInwei(_id));
         tokenList[_id].transfer(msg.sender, tokenToSent);
+        return tokenToSent;
         // todo store the buyer address and number of shares in 2 arrays
     }
     
-    function _getTokenPriceInwei(uint _id) internal view returns(uint) {
+    function getTokenPriceInwei(uint _amount) public returns(uint){
         uint EthPrice  = uint(getLatestPrice());
-        uint tokenPrice = (Estates[_id].tokenPrice.mul(10**18)).div(EthPrice);
-        return tokenPrice;
+        uint test = 50;
+        uint tokenPrice = (test.mul(10**18)).div(EthPrice);
+        uint tokenToSent = _amount.div(tokenPrice.mul(10**8)) ;
+        emit PriceResult(tokenPrice, tokenToSent);
+        return _amount;
     }
     
     function getBalanceByToken(uint _id) public view returns(uint) {
@@ -122,11 +126,14 @@ contract PeculeTokenManager is Ownable{
         PCLTTokensContract = PCLTTokensInterface(_address);
     }
     
-    function openSale() public onlyOwner{
+    function openSale() public {
         CurrentState = State.SALE_OPEN;
     }
     
     function closeSale() public onlyOwner{
         CurrentState = State.SALE_CLOSED;
+    }
+    function balanceOf(uint _id) public view returns(uint) {
+         return tokenList[_id].balanceOf(msg.sender);
     }
 }

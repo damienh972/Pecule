@@ -1,4 +1,5 @@
 export const CREATE_ASSET = "CREATE_ASSET";
+export const OPEN_SALES = "OPEN_SALES";
 
 export const createAsset = (
   name,
@@ -13,4 +14,7 @@ export const createAsset = (
   yearROI,
   estatePrice,
   tokenPrice,
+});
+export const openSales = () => ({
+  type: OPEN_SALES,
 });

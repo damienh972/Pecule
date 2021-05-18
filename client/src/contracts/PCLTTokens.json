@@ -442,16 +442,16 @@
     "absolutePath": "/mnt/c/Users/damie/Documents/pecule_test_drizzle/contracts/PeculeToken.sol",
     "exportedSymbols": {
       "Context": [
-        1748
+        1744
       ],
       "ERC20": [
         664
       ],
       "IERC20": [
-        1725
+        1721
       ],
       "Ownable": [
-        1292
+        1288
       ],
       "PCLTTokens": [
         738
@@ -481,7 +481,7 @@
         "id": 704,
         "nodeType": "ImportDirective",
         "scope": 739,
-        "sourceUnit": 1293,
+        "sourceUnit": 1289,
         "src": "195:52:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -521,10 +521,10 @@
               "id": 709,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1292,
+              "referencedDeclaration": 1288,
               "src": "441:7:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1292",
+                "typeIdentifier": "t_contract$_Ownable_$1288",
                 "typeString": "contract Ownable"
               }
             },
@@ -535,9 +535,9 @@
         ],
         "contractDependencies": [
           664,
-          1292,
-          1725,
-          1748
+          1288,
+          1721,
+          1744
         ],
         "contractKind": "contract",
         "documentation": {
@@ -550,10 +550,10 @@
         "id": 738,
         "linearizedBaseContracts": [
           738,
-          1292,
+          1288,
           664,
-          1725,
-          1748
+          1721,
+          1744
         ],
         "name": "PCLTTokens",
         "nodeType": "ContractDefinition",
@@ -882,16 +882,16 @@
     "absolutePath": "/mnt/c/Users/damie/Documents/pecule_test_drizzle/contracts/PeculeToken.sol",
     "exportedSymbols": {
       "Context": [
-        1748
+        1744
       ],
       "ERC20": [
         664
       ],
       "IERC20": [
-        1725
+        1721
       ],
       "Ownable": [
-        1292
+        1288
       ],
       "PCLTTokens": [
         738
@@ -921,7 +921,7 @@
         "id": 704,
         "nodeType": "ImportDirective",
         "scope": 739,
-        "sourceUnit": 1293,
+        "sourceUnit": 1289,
         "src": "195:52:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -961,10 +961,10 @@
               "id": 709,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1292,
+              "referencedDeclaration": 1288,
               "src": "441:7:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1292",
+                "typeIdentifier": "t_contract$_Ownable_$1288",
                 "typeString": "contract Ownable"
               }
             },
@@ -975,9 +975,9 @@
         ],
         "contractDependencies": [
           664,
-          1292,
-          1725,
-          1748
+          1288,
+          1721,
+          1744
         ],
         "contractKind": "contract",
         "documentation": {
@@ -990,10 +990,10 @@
         "id": 738,
         "linearizedBaseContracts": [
           738,
-          1292,
+          1288,
           664,
-          1725,
-          1748
+          1721,
+          1744
         ],
         "name": "PCLTTokens",
         "nodeType": "ContractDefinition",
@@ -1324,7 +1324,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.2",
-  "updatedAt": "2021-02-18T14:27:59.609Z",
+  "updatedAt": "2021-04-05T13:43:24.907Z",
   "devdoc": {
     "author": "Damien HELOISE [damienjheloise@gmail.com]",
     "details": "Token creator and distributor ",

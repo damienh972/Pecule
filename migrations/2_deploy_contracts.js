@@ -1,6 +1,7 @@
 
-const PeculeTokenManager = artifacts.require("PeculeTokenManager");
+const PeculeTokensManager = artifacts.require("PeculeTokensManager");
+
 
 module.exports = function(deployer) {
-  deployer.deploy(PeculeTokenManager);
+  deployer.deploy(PeculeTokensManager);
 };

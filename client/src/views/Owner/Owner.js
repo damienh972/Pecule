@@ -23,6 +23,7 @@ import styles from "assets/jss/material-kit-react/views/loginPage.js";
 const useStyles = makeStyles(styles);
 
 export default function Owner(props) {
+  console.log(props);
   const [name, setName] = useState("");
   const [totalSupply, setTotalSupply] = useState("");
   const [roi, setRoi] = useState("");
@@ -39,16 +40,16 @@ export default function Owner(props) {
     setName(evt.target.value);
   };
   const handleTotalSupply = (evt) => {
-    setTotalSupply(evt.target.value);
+    setTotalSupply(Number(evt.target.value));
   };
   const handleRoi = (evt) => {
-    setRoi(evt.target.value);
+    setRoi(Number(evt.target.value));
   };
   const handleEstatePrice = (evt) => {
-    setEstatePrice(evt.target.value);
+    setEstatePrice(Number(evt.target.value));
   };
   const handleTokenPrice = (evt) => {
-    setTokenPrice(evt.target.value);
+    setTokenPrice(Number(evt.target.value));
   };
   const handleSubmission = () => {
     props.createAsset(name, totalSupply, roi, estatePrice, tokenPrice);
@@ -179,9 +180,13 @@ export default function Owner(props) {
                   </CardFooter>
                 </form>
               </Card>
+              <Button onClick={() => props.openSales()} color="primary" size="lg">
+                Open sales
+              </Button>
             </GridItem>
           </GridContainer>
         </div>
+
         <Footer whiteFont />
       </div>
     </div>

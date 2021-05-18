@@ -143,7 +143,7 @@ export default function Test(props) {
             <Button
               color="warning"
               size="lg"
-              onClick={() => props.payWithMM(3)}
+              onClick={() => props.payWithMM(1)}
             >
               J'achete avec Metamask !
             </Button>
